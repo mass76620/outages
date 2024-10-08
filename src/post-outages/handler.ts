@@ -29,10 +29,10 @@ export class Handler {
           }
           await this.siteOutageService.createOutagesForSite(
             siteOutages,
-            siteInfo.id
+            siteInfo.id,
           );
         },
-        { delay, maxTry: 5 }
+        { delay, maxTry: 5 },
       );
     } catch (e) {
       if (isTooManyTries(e)) {
