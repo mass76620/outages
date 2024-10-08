@@ -1,8 +1,8 @@
 {
-  "name": "krakenflex-code",
+  "name": "outages",
   "version": "1.0.0",
-  "description": "",
-  "author": "",
+  "description": "This is the code for the technical task.",
+  "author": "Mamadou DIOP",
   "private": true,
   "license": "UNLICENSED",
   "scripts": {
