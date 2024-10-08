@@ -44,7 +44,7 @@ describe("SiteOutageService", () => {
             },
           ]),
         ok: true,
-      })
+      }),
     )
     .mockImplementationOnce(() =>
       Promise.resolve({
@@ -64,7 +64,7 @@ describe("SiteOutageService", () => {
             ],
           }),
         ok: true,
-      })
+      }),
     );
 
   beforeAll(async () => {
@@ -97,7 +97,7 @@ describe("SiteOutageService", () => {
 
       const filteredOutages = siteOutageService.getFileteredOutages(
         outages,
-        site
+        site,
       );
       expect(filteredOutages).toEqual([]);
     });
@@ -113,7 +113,7 @@ describe("SiteOutageService", () => {
 
       const filteredOutages = siteOutageService.getFileteredOutages(
         outages,
-        site
+        site,
       );
       expect(filteredOutages).toEqual([]);
     });
@@ -139,7 +139,7 @@ describe("SiteOutageService", () => {
 
       const filteredOutages = siteOutageService.getFileteredOutages(
         outages,
-        site
+        site,
       );
       expect(filteredOutages).toEqual([
         {

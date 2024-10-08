@@ -24,7 +24,7 @@ export class Handler {
           const siteOutages: SiteOutageDto[] =
             this.siteOutageService.mapSiteOutages(filtered, siteInfo);
           if (siteOutages.length === 0) {
-            console.log("There is not outage to POST");
+            console.log("There is no outage to POST");
             return;
           }
           await this.siteOutageService.createOutagesForSite(
