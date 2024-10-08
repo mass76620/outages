@@ -1,5 +1,5 @@
 import { OutageDto } from "./outage.dto";
 
-export class SiteOutageDto extends OutageDto {
+export class EnhancedOutagesDto extends OutageDto {
   name: string;
 }

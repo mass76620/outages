@@ -1,42 +1,46 @@
+import { EnhancedOutagesDto } from "../dto/enhanced-outages.dto";
 import { OutageDto } from "../dto/outage.dto";
-import { SiteOutageDto } from "../dto/site-outage.dto";
-import { SiteDto } from "../dto/site.dto";
+import { SiteInfoDto } from "../dto/site-info.dto";
 const retry = require("retry");
 
-export class SiteOutageService {
+export class OutageService {
+  constructor() {}
   private readonly endpoint = `https://api.krakenflex.systems/interview-tests-mock-api/v1`;
   async getOutages(): Promise<OutageDto[]> {
     return await this.fetch<OutageDto[]>(
       `${this.endpoint}/outages`,
       "GET",
-      `Could not GET outages `,
+      `Could not GET outages `
     );
   }
 
-  async getSite(siteId: string): Promise<SiteDto> {
-    return await this.fetch<SiteDto>(
+  async getSite(siteId: string): Promise<SiteInfoDto> {
+    return await this.fetch<SiteInfoDto>(
       `${this.endpoint}/site-info/${siteId}`,
       "GET",
-      `Could not GET site ${siteId} `,
+      `Could not GET site ${siteId} `
     );
   }
 
   async createOutagesForSite(
-    outages: SiteOutageDto[],
-    siteId: string,
+    outages: EnhancedOutagesDto[],
+    siteId: string
   ): Promise<void> {
     const response = await this.fetch<{}>(
       `${this.endpoint}/site-outages/${siteId}`,
       "POST",
       "Could not POST site outages for norwich-pear-tree",
-      outages,
+      outages
     );
     if (response) {
       console.log("Outages for`norwich-pear-tree` where created successfully");
     }
   }
 
-  getFileteredOutages(outages: OutageDto[], siteInfo: SiteDto): OutageDto[] {
+  getFileteredOutages(
+    outages: OutageDto[],
+    siteInfo: SiteInfoDto
+  ): OutageDto[] {
     const deviceIds: string[] = siteInfo.devices.map((device) => device.id);
 
     return outages.filter((outage: OutageDto) => {
@@ -47,7 +51,7 @@ export class SiteOutageService {
     });
   }
 
-  mapSiteOutages(filteredOutages: OutageDto[], siteInfo: SiteDto) {
+  mapSiteOutages(filteredOutages: OutageDto[], siteInfo: SiteInfoDto) {
     return filteredOutages.map((outage: OutageDto) => {
       return {
         ...outage,
@@ -62,7 +66,7 @@ export class SiteOutageService {
     url: string,
     method: "GET" | "POST" | "DELETE",
     errorMessage: string,
-    data?: Record<string, unknown> | FormData | any[],
+    data?: Record<string, unknown> | FormData | any[]
   ): Promise<T> {
     const response = await fetch(url, {
       method,
@@ -78,8 +82,8 @@ export class SiteOutageService {
         JSON.stringify(
           { errorMessage, statusText: response.statusText, data },
           null,
-          4,
-        ),
+          4
+        )
       );
     }
     return response.json() as T;

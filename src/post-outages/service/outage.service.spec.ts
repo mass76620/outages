@@ -1,10 +1,12 @@
 import { OutageDto } from "../dto/outage.dto";
-import { SiteDto } from "../dto/site.dto";
-import { SiteOutageService } from "./site-outage.service";
+import { SiteInfoDto } from "../dto/site-info.dto";
+import { OutageApiService } from "./api/site-outage.api.service";
+import { OutageService } from "./outage.service";
 
-describe("SiteOutageService", () => {
-  let siteOutageService: SiteOutageService;
-  let site: SiteDto;
+describe("OutageService", () => {
+  let outageApiService: OutageApiService;
+  let outageService: OutageService;
+  let site: SiteInfoDto;
 
   global.fetch = jest
     .fn()
@@ -44,7 +46,7 @@ describe("SiteOutageService", () => {
             },
           ]),
         ok: true,
-      }),
+      })
     )
     .mockImplementationOnce(() =>
       Promise.resolve({
@@ -64,11 +66,11 @@ describe("SiteOutageService", () => {
             ],
           }),
         ok: true,
-      }),
+      })
     );
 
   beforeAll(async () => {
-    siteOutageService = new SiteOutageService();
+    outageService = new OutageService();
     site = {
       id: "kingfisher",
       name: "KingFisher",
@@ -95,10 +97,7 @@ describe("SiteOutageService", () => {
         },
       ];
 
-      const filteredOutages = siteOutageService.getFileteredOutages(
-        outages,
-        site,
-      );
+      const filteredOutages = outageService.getFileteredOutages(outages, site);
       expect(filteredOutages).toEqual([]);
     });
 
@@ -111,10 +110,7 @@ describe("SiteOutageService", () => {
         },
       ];
 
-      const filteredOutages = siteOutageService.getFileteredOutages(
-        outages,
-        site,
-      );
+      const filteredOutages = outageService.getFileteredOutages(outages, site);
       expect(filteredOutages).toEqual([]);
     });
 
@@ -137,10 +133,7 @@ describe("SiteOutageService", () => {
         },
       ];
 
-      const filteredOutages = siteOutageService.getFileteredOutages(
-        outages,
-        site,
-      );
+      const filteredOutages = outageService.getFileteredOutages(outages, site);
       expect(filteredOutages).toEqual([
         {
           id: "002b28fc-283c-47ec-9af2-ea287336dc1b",
@@ -161,7 +154,7 @@ describe("SiteOutageService", () => {
         },
       ];
 
-      const filteredOutages = siteOutageService.mapSiteOutages(outages, site);
+      const filteredOutages = outageService.mapSiteOutages(outages, site);
       expect(filteredOutages).toEqual([
         {
           id: "002b28fc-283c-47ec-9af2-ea287336dc1b",
@@ -181,7 +174,7 @@ describe("SiteOutageService", () => {
         },
       ];
 
-      const filteredOutages = siteOutageService.mapSiteOutages(outages, site);
+      const filteredOutages = outageService.mapSiteOutages(outages, site);
       expect(filteredOutages).toEqual([
         {
           id: "002b28fc-283c-47ec-9af2-ea287336dc1a",
@@ -206,7 +199,7 @@ describe("SiteOutageService", () => {
         },
       ];
 
-      const filteredOutages = siteOutageService.mapSiteOutages(outages, site);
+      const filteredOutages = outageService.mapSiteOutages(outages, site);
       expect(filteredOutages).toEqual([
         {
           id: "002b28fc-283c-47ec-9af2-ea287336dc1b",

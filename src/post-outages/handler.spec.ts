@@ -1,13 +1,14 @@
 import { Handler } from "./handler";
-import { SiteOutageService } from "./service/site-outage.service";
+import { OutageApiService } from "./service/api/site-outage.api.service";
+import { OutageService } from "./service/outage.service";
 
 describe("SiteOutageService", () => {
   let handler: Handler;
-  let siteOutageService: SiteOutageService;
+  let outageApiService: OutageApiService;
 
   beforeAll(async () => {
-    siteOutageService = new SiteOutageService();
-    handler = new Handler(siteOutageService);
+    outageApiService = new OutageApiService();
+    handler = new Handler(new OutageService(), outageApiService);
   });
 
   afterEach(() => {
@@ -16,17 +17,16 @@ describe("SiteOutageService", () => {
 
   describe("getOutages", () => {
     it("Send site outages", async () => {
-      jest.spyOn(siteOutageService, "createOutagesForSite");
-      await handler.sendOutagesForSite();
-      expect(siteOutageService.createOutagesForSite).toHaveBeenCalledTimes(1);
+      jest.spyOn(outageApiService, "createOutagesForSite");
+      await handler.sendEnhancedOutages();
+      expect(outageApiService.createOutagesForSite).toHaveBeenCalledTimes(1);
     });
 
     it("No site outages to POST because no outages returned by the API", async () => {
-      process.env.NODE_ENV = "dev";
-      jest.spyOn(siteOutageService, "getOutages").mockResolvedValue([]);
-      jest.spyOn(siteOutageService, "createOutagesForSite");
-      await handler.sendOutagesForSite();
-      expect(siteOutageService.createOutagesForSite).toHaveBeenCalledTimes(0);
+      jest.spyOn(outageApiService, "getOutages").mockResolvedValue([]);
+      jest.spyOn(outageApiService, "createOutagesForSite");
+      await handler.sendEnhancedOutages();
+      expect(outageApiService.createOutagesForSite).toHaveBeenCalledTimes(0);
     });
   });
 });
