@@ -46,7 +46,7 @@ describe("OutageService", () => {
             },
           ]),
         ok: true,
-      })
+      }),
     )
     .mockImplementationOnce(() =>
       Promise.resolve({
@@ -66,7 +66,7 @@ describe("OutageService", () => {
             ],
           }),
         ok: true,
-      })
+      }),
     );
 
   beforeAll(async () => {

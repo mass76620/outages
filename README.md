@@ -6,6 +6,10 @@ This repo contains code that fetches outages, filters them based on requirements
 
 Create a `.env` file at the root directory of the project and create `API_KEY` environment variable and set it with the API key provided in `api.yaml`.
 
+```
+API_KEY={TO_BE_REPLACE}
+ENDPOINT=https://api.krakenflex.systems/interview-tests-mock-api/v1
+```
 
 ## Test
 

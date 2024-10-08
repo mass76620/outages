@@ -11,7 +11,7 @@ dotenv.config();
 export class Handler {
   constructor(
     private readonly outageService: OutageService,
-    private readonly outageApiService: OutageApiService
+    private readonly outageApiService: OutageApiService,
   ) {}
   async sendEnhancedOutages() {
     try {
@@ -23,7 +23,7 @@ export class Handler {
             await this.outageApiService.getSite("norwich-pear-tree");
           const filtered: OutageDto[] = this.outageService.getFileteredOutages(
             outages,
-            siteInfo
+            siteInfo,
           );
 
           const siteOutages: EnhancedOutagesDto[] =
@@ -34,10 +34,10 @@ export class Handler {
           }
           await this.outageApiService.createOutagesForSite(
             siteOutages,
-            siteInfo.id
+            siteInfo.id,
           );
         },
-        { delay, maxTry: 5 }
+        { delay, maxTry: 5 },
       );
     } catch (e) {
       if (isTooManyTries(e)) {

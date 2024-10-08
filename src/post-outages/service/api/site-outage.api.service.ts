@@ -10,7 +10,7 @@ export class OutageApiService {
     return await this.fetch<OutageDto[]>(
       `${this.endpoint}/outages`,
       "GET",
-      `Could not GET outages `
+      `Could not GET outages `,
     );
   }
 
@@ -18,19 +18,19 @@ export class OutageApiService {
     return await this.fetch<SiteInfoDto>(
       `${this.endpoint}/site-info/${siteId}`,
       "GET",
-      `Could not GET site ${siteId} `
+      `Could not GET site ${siteId} `,
     );
   }
 
   async createOutagesForSite(
     outages: EnhancedOutagesDto[],
-    siteId: string
+    siteId: string,
   ): Promise<void> {
     const response = await this.fetch<{}>(
       `${this.endpoint}/site-outages/${siteId}`,
       "POST",
       "Could not POST site outages for norwich-pear-tree",
-      outages
+      outages,
     );
     if (response) {
       console.log("Outages for`norwich-pear-tree` where created successfully");
@@ -41,7 +41,7 @@ export class OutageApiService {
     url: string,
     method: "GET" | "POST" | "DELETE",
     errorMessage: string,
-    data?: Record<string, unknown> | FormData | any[]
+    data?: Record<string, unknown> | FormData | any[],
   ): Promise<T> {
     const response = await fetch(url, {
       method,
@@ -57,8 +57,8 @@ export class OutageApiService {
         JSON.stringify(
           { errorMessage, statusText: response.statusText, data },
           null,
-          4
-        )
+          4,
+        ),
       );
     }
     return response.json() as T;
