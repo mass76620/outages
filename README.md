@@ -1,6 +1,6 @@
 # Outages
 
-This repo contains code that fetch outages, filter them based on requirements and attach the device name to then POST them to an endpoint.
+This repo contains code that fetches outages, filters them based on requirements and attaches the device name and finally POST them to an endpoint.
 
 ## Setup (This step in needed to run the tests and run the scripts)
 
@@ -9,7 +9,7 @@ Create a `.env` file at the root directory of the project and create `API_KEY` e
 
 ## Test
 
-Tests are written with jest in order to execute them, please run the following command:
+Tests are written with jest in order to execute them. Run the following command:
 
 ```
   yarn run test
